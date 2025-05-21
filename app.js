@@ -24,15 +24,18 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Routes
-// const adminRoutes = require('./routes/adminRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 const authRoutes = require('./routes/authRoutes');
-// const userRoutes = require('./routes/userRoutes');
+const userRoutes = require('./routes/userRoutes');
 app.use('/', authRoutes);
-// app.use('/', adminRoutes);
-// app.use('/', userRoutes);
+app.use('/admin', adminRoutes);
+app.use('/user', userRoutes);
 
 // Schema creation
 createUserTable(); // Call this after setting up middlewares
+
+const { createFoodTable } = require('./Models/foodModel');
+createFoodTable();
 
 // Server
 app.listen(PORT, () => {
